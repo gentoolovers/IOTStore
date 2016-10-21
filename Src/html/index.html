@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>物联仓储管理系统</title>
+    <link href="style/style.css" type="text/css" rel="stylesheet"/>
+    <script type="text/javascript" src="script/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="script/myjs.js"></script>
+</head>
+
+<body id="cov">
+	<div id="header">
+    	<div class="logo">物联仓储管理系统</div><!--logo-->
+        <div class="header_con">
+        	<ul class="headerMenu">
+                <li><img src="images/ic2.png" alt=""/><a href="">后退</a></li>
+                <li><img src="images/ic3.png" alt=""/><a href="">前进</a></li>
+                <li><img src="images/ic1.png" alt=""/><span>当前用户：管理员</span></li>
+            </ul>
+            <ul class="headerMenu clear right">            	
+                <li><img src="images/ic5.png" alt=""/><a href="login.html">退出</a></li>
+                <li><img src="images/ic4.png" alt=""/><a target="mainFrame" href="Password.html">修改密码</a></li>
+            </ul>
+        </div><!--header_con-->
+    </div><!--header-->
+    <div id="lefter">
+    	<div id="menuBody">
+           
+                
+        	<h2>常规管理</h2>
+            <ul id="leftMenu">
+                <li class="li1">综合展示</li>
+                <li class="li2">
+                <ul>
+                    <li><a target="mainFrame" href="main.html">首页</a></li>
+                </ul>
+                <li class="li1">信息查询</li>
+                <li class="li2">
+                <ul>
+                    <li><a target="mainFrame" href="History_Storage.html">仓库运行状态</a></li>
+                    <li><a target="mainFrame" href="History_Device.html">设备状态查询</a></li>
+                    <li><a target="mainFrame" href="History_Info.html">历史记录查询</a></li>
+                    <li><a target="mainFrame" href="History_Camrea.html">视频记录查询</a></li>
+                    <li><a target="mainFrame" href="History_RFID.html">射频刷卡记录查询</a></li>
+                </ul>
+               
+                <li class="li1">系统管理</li>
+                <li class="li2">
+                <ul>
+                    <li><a target="mainFrame" href="WiFi.html">WIFI设置</a></li>
+                    <li><a target="mainFrame" href="Alarm.html">报警信息设置</a></li>
+                    <li><a target="mainFrame" href="Camera.html">视频监测信息</a></li>
+                </ul>
+                </li>
+                <li class="li1">仓储管理</li>
+                <li class="li2">
+                <ul>
+                    <li><a target="mainFrame" href="Storage.html">仓库信息</a></li>
+                    <li><a target="mainFrame" href="Article.html">物品信息</a></li>
+                    <li><a target="mainFrame" href="RFID.html">RFID录入</a></li>
+                </ul>
+                </li>
+                <li class="li1">设备管理</li>
+                <li class="li2">
+                <ul>
+                    <li><a target="mainFrame" href="Device.html">设备管理</a></li>
+                  
+                </ul>
+                </li>
+                <li class="li1">用户管理</li>
+                <li class="li2">
+                <ul>
+                    <li><a target="mainFrame" href="User.html">用户管理</a></li>
+                    <!--<li><a target="mainFrame" href="Password.html">修改密码</a></li>-->
+                </ul>
+                </li>
+            </ul>
+        </div><!--menuBody-->
+    </div><!--lefter-->
+    <div id="menuStart">
+    	<img id="menuStartM" src="images/arrowtoleft.png" alt="显示菜单栏" />
+    </div><!--menuStart-->
+    <iframe id="mainFrame" name="mainFrame" frameborder="0" src="main.html"></iframe><!--mainFrame-->
+</body>
+</html>

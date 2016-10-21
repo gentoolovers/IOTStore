@@ -1,0 +1,64 @@
+/* 通用样式 */
+*,form{margin:0;padding:0;}
+img{border:none;}
+body{font-family:宋体, Arial, Helvetica, sans-serif;font-size:12px;color:#000;background:#fff;width:100%;height:100%;margin:0 auto 0 auto;}
+ul{list-style:none;}
+a{text-decoration:none;margin:0 2px 0 2px;color:#000;}
+a:hover{text-decoration:underline;color:#a20500}
+html{height:100%;width:100%;overflow:hidden;}
+.clear{clear:both;}
+.right{float:right;}
+#cov{overflow:hidden; background:#2a8dc8;}
+
+#header{height:61px;background:url(../images/q1.jpg) center top repeat-x;color:#fff;position:relative;top:0; width:100%;}
+	#header a,#header span{color:#fff;height:16px;line-height:16px;}
+	#header a:hover{color:#fff; text-decoration:underline;}
+	.logo{width:350px;height:61px;line-height:61px;float:left;  font-family:Arial, Helvetica,"微软雅黑","宋体"; font-size:25px; font-weight:bold; margin-left:20px;text-shadow:2px 2px 2px #ffb69a;}
+	.header_con{float:right;}
+		.headerMenu li{float:right;margin:8px 10px 0 0;}
+		.headerMenu li img,.headerMenu li a,headerMenu li span{float:left;}
+
+#lefter{float:left;left:0px;width:200px;height:100%; background:url(../images/ic7.png) center top repeat-y;position:relative;z-index:9;}
+	#menuBody h2{font-weight:bold; font-size:12px; text-align:center; width:200px; height:37px; line-height:40px; background: url(../images/ic6.png) 0 0 no-repeat;}
+		#leftMenu{padding-top:0px;width:200px;}
+		.li1{font-weight:bold; text-align:center;line-height:32px; background: url(../images/ic8.png) 0 0 no-repeat;}
+		.li2{width:100%;display:none;}
+		.li2 ul li{font-weight:normal; text-align:center; width:200px; height:29px; line-height:29px; background: url(../images/111.png) 0 0 no-repeat; display:block;}
+
+#menuStart{position:absolute;top:40%;left:202px;width:8px;height:100%;z-index:10;}
+	#menuStartM{cursor:pointer;}
+	
+#mainFrame{position:absolute;left:215px;height:90px;}
+.workarea{background:#2a8dc8;;width:100%;height:100%;}
+
+.workTitle{border:1px #01669a solid;margin-top:5px;height:27px;line-height:27px;background:url(../images/workTitle_m.gif) repeat-x;}
+	.workTitle h2{ height:37px; line-height:37px;background: url(../images/ic10.png) 0 0 repeat-x;}
+	.workTitle h2 .path{padding-left:28px;background: url(../images/ic11.png) 5px -1px no-repeat;}
+	.workTitle h2 span{ padding-left:5px;font-size:12px;color:#707070}
+	.workTitle h2 a{color:#666; margin-right:5px;margin-left:5px;font-size:12px;}
+	.workTitle h2 a:hover{color:#f00; text-decoration:underline;}
+	
+.workCov{border:1px #01669a solid;border-top:0;background:#fffffe;height:94.7%;text-align:center;padding-top:1px;}
+
+.tabCon{width:97%;margin:10px;text-align:left;}
+	.conT{color:#000000;padding:2px 8px;text-align:center;white-space:nowrap;margin-left: 10px;position:relative;z-index:10;background:url(../images/ls1.gif) #fffffe repeat-x bottom;}
+	.conBox{width:100%;overflow:auto;border:1px #cccccc solid;margin:-8px 0 10px 0;background:#FFF;padding-top:15px;}
+	.searForm{margin:10px 5px 5px 5px;}
+		.searForm li{height:26px;line-height:26px;border-bottom:1px #c8d6e1 dashed;padding-top:5px;}
+		.searForm li.oddColor{background:#e9f6fe;}
+			.searForm li .searLab{float:left;display:block;width:100px;text-align:right;padding-right:5px;}
+			.searForm li .searInput{float:left;display:block;text-align:left;}
+
+
+.table1{border:1px #b5d6e6 solid;width:98%;margin:10px auto 5px auto;background:#FFF;}
+	.table1 thead{height:22px;width:100%;}
+		.table1 thead td{background:url(../images/ic19.png) repeat-x;font-weight:bold;color:#707070;height:22px;}
+	.table1 tbody tr{height:22px;line-height:22px;background:#f9f9f9;}
+	.table1 tbody tr.oddColor{background:#e9f6fe;}
+	.table1 tbody tr.overColor{background:#cdeafb;}
+	.table1 tbody td{color:#707070;}
+	.table1 tfoot td{height:26px;line-height:26px;background:#fffffe;text-align:right;padding-right:20px;color:#707070;}
+
+.alignL{text-align:left;padding-left:10px;}
+.alignM{text-align:center;}
+.alignR{text-align:right;padding-right:10px;}

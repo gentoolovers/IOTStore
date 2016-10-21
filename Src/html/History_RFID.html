@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="My97DatePicker/skin/WdatePicker.css" rel="stylesheet" />
+    <link href="style/style.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="script/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="script/myjs.js"></script>
+    <script src="My97DatePicker/WdatePicker.js"></script>
+    <script src="script/UnitPage.js"></script>
+    <script type="text/javascript">
+        var sCon = " ";
+        var sSort = " order by RFID_HistoryID";
+        var iCurrentPageIndex = 1;
+        var iPageSize = 10;
+        var iTotalPageCount = 0;
+        var rfid;
+        $(function () {
+            $.ajax({
+                async: false,
+                type: "POST",
+                url: "./cgi-bin/Tbl_RFID_InfoFind.cgi",
+                contentType: "application/x-www-form-urlencoded",
+                data: "sCon= ",
+                success: function (json) {
+                    list = eval("(" + json + ")");
+                    rfid = list.jsn;
+                }
+            });
+            DataBind();
+        })
+
+        function DataBind() {
+            var data = "sCon=" + sCon + "&sSort=" + sSort + "&iPageSize=" + iPageSize + "&iCurrentPageIndex=" + iCurrentPageIndex;
+            $.ajax({
+                async: false,
+                type: "POST",
+                url: "./cgi-bin/Tbl_RFID_HistoryFindPage.cgi",
+                contentType: "application/x-www-form-urlencoded",
+                data: data,
+                success: function (json) {
+                    var list = eval("(" + json + ")");
+                    if (!noresultSet(list.iTotalPageCount)) return false;
+                    UnitPage(list.iTotalPageCount);
+                    $(".table1>tbody>tr").remove();
+                    $.each(list.jsn, function (i, n) {
+                        var str = "<tr>";
+                        for (i = 0; i < rfid.length; i++) {
+                            if (rfid[s].RFID_ID == n.RFID_ID)
+                                str += "<td class=\"alignL\">" + rfid[s].RFID + "</td>";
+                        }
+                        str += "<td class=\"alignM\">" + n.Date + "</td>";
+                        str += "</tr>";
+                        $(".table1>tbody").append(str);
+                        setTable();
+                    });
+
+                }
+            });
+        }
+
+        function btnQuery_Click() {
+            sCon = "";
+            if ($("#txtRFID").val() != 0) {
+                sCon += " and RFID_ID IN (select RFID_ID from tbl_RFID_info where RFID='" + $("#txtRFID").val() + "')";
+            }
+
+            if ($("#txtBeginDateTime").val() != "") {
+                sCon += " and Date >= '" + $("#txtBeginDateTime").val() + "'";
+            }
+            if ($("#txtEndDateTime").val() != "") {
+                sCon += " and Date <= '" + $("#txtEndDateTime").val() + "'";
+            }
+            iCurrentPageIndex = 1;
+            DataBind();
+        };
+
+
+
+
+    </script>
+</head>
+
+<body class="workarea">
+    <div class="workTitle">
+        <h2><span class="path bolder">您当前的位置：</span><a href="#">信息查询</a><span>&gt;&gt;</span><a href="#">视频记录查询</a></h2>
+    </div>
+    <div class="workCov">
+        <div class="tabCon">
+            <strong class="conT">组合查询</strong>
+            <div class="conBox">
+                <form>
+                    <ul class="searForm">
+                        <li>
+                            <label class="searLab">RFID</label>
+                            <span class="searInput">
+                                <input id="txtRFID" type="text" /></span>
+                            <label class="searLab">起始日期</label>
+                            <span class="searInput">
+                                <input id="txtBeginDateTime" type="text" class="Wdate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',startDate:'%y-%M-%d'})" /></span>
+                            <label class="searLab">结束日期</label>
+                            <span class="searInput">
+                                <input id="txtEndDateTime" type="text" class="Wdate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',startDate:'%y-%M-%d'})" /></span>
+                            <label class="searLab">&nbsp</label>
+                            <span class="searInput">
+                                <input type="button" value="查询" onclick="btnQuery_Click()" /></span>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+
+            <strong class="conT">查询结果</strong>
+            <div class="conBox">
+                <table class="table1" cellpadding="0" cellspacing="1">
+                    <thead>
+                        <td class="alignM" width="10%">RFID</td>
+                        <td class="alignM" width="30%">时间</td>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                    <tfoot>
+                        <tr><td colspan="5">
+                                <span>
+                                    <label id="labPageInfo">请输入条件，点击查询</label></span>
+                                <span>
+                                    <input id="btnFirst" type="button" value="首页" onclick='btnPage_Click("First")' /></span>
+                                <span>
+                                    <input id="btnPrev" type="button" value="上一页" onclick='btnPage_Click("Prev")' /></span>
+                                <span>
+                                    <input id="btnNext" type="button" value="下一页" onclick='btnPage_Click("Next")' /></span>
+                                <span>
+                                    <input id="btnLast" type="button" value="末页" onclick='btnPage_Click("Last")' /></span>
+
+                                <span style="margin-left: 5px;">跳转到第
+                                    <select id="selPage" style="width: 40px;" onchange="SelPage_SelectedIndexChanged()">
+                                    </select>页
+                                </span>
+						</td></tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

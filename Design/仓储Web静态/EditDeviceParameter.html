@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="Style/style.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="Script/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="Script/myjs.js"></script>
+</head>
+<body class="workarea">
+    <div class="workTitle">
+        <h2></h2>
+    </div>
+    <form>
+        <div class="workCov">
+            <div class="tabCon">
+                <strong class="conT">采集参数</strong>
+                <div class="conBox">
+                    <ul class="searForm">
+                        <li>
+
+                            <label class="searLab">设备标识</label>
+                            <span class="searInput">
+                                <label>XBSIC003</label></span>
+
+                        </li>
+                        <li>
+                            <label class="searLab">最低温度</label>
+                            <span class="searInput">
+                                <input type="text" value="0" />℃</span>
+                            <label class="searLab">最高温度</label>
+                            <span class="searInput">
+                                <input type="text" value="100" />℃</span>
+                        </li>
+                        <li>
+                            <label class="searLab">最低湿度</label>
+                            <span class="searInput">
+                                <input type="text" value="0" />℃</span>
+                            <label class="searLab">最高湿度</label>
+                            <span class="searInput">
+                                <input type="text" value="100" />℃</span>
+                        </li>
+                        <li>
+                            <label class="searLab">最低光度</label>
+                            <span class="searInput">
+                                <input type="text" value="0" />℃</span>
+                            <label class="searLab">最高光度</label>
+                            <span class="searInput">
+                                <input type="text" value="100" />℃</span>
+                        </li>
+
+
+                    </ul>
+                </div>
+
+
+            </div>
+            <div class="tabCon">
+                <strong class="conT">控制参数</strong>
+                <div class="conBox">
+                    <ul class="searForm">
+                        <li>
+                            <label class="searLab">LED</label>
+                            <span class="searInput">
+                                <input id="Radio1" type="radio" checked="checked" />开<input id="Radio2" type="radio" />关</span>
+
+                        </li>
+                        <li>
+                            <label class="searLab">Beep</label>
+                            <span class="searInput">
+                                <input id="Radio3" type="radio" checked="checked" />开<input id="Radio4" type="radio" />关</span>
+
+                        </li>
+                        <li>
+                            <label class="searLab">Seg</label>
+                            <span class="searInput">
+                                <input id="Radio5" type="radio" checked="checked" />开<input id="Radio6" type="radio" />关<input id="Text1" type="text" /></span>
+
+                        </li>
+                        <li>
+                            <label class="searLab">Fan</label>
+                            <span class="searInput">
+                                <input id="Radio7" type="radio" checked="checked" />off
+                            <input id="Radio8" type="radio" />1
+                            <input id="Radio9" type="radio" />2
+                            <input id="Radio10" type="radio" />3
+                            </span>
+
+                        </li>
+                        <li>
+                            <label class="searLab">射频刷卡</label>
+                            <span class="searInput">
+                                <input id="Radio11" type="radio" checked="checked" />开<input id="Radio12" type="radio" />关<input id="Text2" type="text" /></span>
+
+                        </li>
+                        <li>
+                            <label class="searLab">震动报警</label>
+                            <span class="searInput">
+                                <input id="Radio13" type="radio" checked="checked" />开<input id="Radio14" type="radio" />关<input id="Text3" type="text" /></span>
+
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="tabCon">
+                <strong class="conT">上传参数</strong>
+                <div class="conBox">
+
+                    <ul class="searForm">
+                        <li>
+                            <label class="searLab">上传周期</label>
+                            <span class="searInput">
+                                <input id="Text7" type="text" value="30000" />毫秒</span>
+
+                        </li>
+
+                        <li>
+                            <label class="searLab">&nbsp</label>
+                            <span class="searInput">
+                                <input id="Button1" type="button" value="保存" /></span>
+                            <label class="searLab">&nbsp</label>
+                            <span class="searInput">
+                                <input type="button" value="取消" onclick="location = 'Device.html'" /></span>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+</body>
+</html>

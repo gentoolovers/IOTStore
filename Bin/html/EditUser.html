@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <link href="style/style.css" type="text/css" rel="stylesheet"/>
+    <script type="text/javascript" src="script/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="script/myjs.js"></script>
+    <script src="script/jquery.urlGet.js"></script>
+    <script type="text/javascript">
+        var UserID = $.urlGet()['UserID'];
+        $(function () {
+            if (UserID != undefined)
+            {
+                $.ajax({
+                    type: "POST",
+                    url: "./cgi-bin/Tbl_User_InfoFindSingle.cgi",
+                    contentType: "application/x-www-form-urlencoded",
+                    data: "sCon= and UserID='" + UserID + "'",
+                    success: function (json) {
+                        list = eval("(" + json + ")");
+                        user = list.jsn[0];
+                        $("#txtUserName").val(user.UserName);
+                        $("#txtNickName").val(user.NickName);
+                        $("#selRole").val(user.RoleID);
+                        $("#txtPWD").val(user.Password);
+                        $("#txtPWD2").val(user.Password);
+                    }
+                });
+            }
+            $("#btnSave").click(function () {
+                if (!CheckValid()) return false;
+               
+                if (UserID == undefined) {
+                   var data = "UserID=0&UserName=" + $("#txtUserName").val() + "&Password=" + $("#txtPWD").val() + "&RoleID=" + $("#selRole").val() + "&NickName=" + $("#txtNickName").val();
+                    $.ajax({
+                        type: "POST",
+                        url: "./cgi-bin/Tbl_User_InfoAdd.cgi",
+                        contentType: "application/x-www-form-urlencoded",
+                        data: data,
+                        success: function (json) {
+                            list = eval("(" + json + ")");
+                            if (json.jsn == 0) {
+                                alert("保存失败");
+                            } else {
+                                alert("保存成功");
+                                window.location.href = "User.html";
+                            }
+                        }
+                    });
+                } else {
+                    var data = "UserID="+UserID+"&UserName=" + $("#txtUserName").val() + "&Password=" + $("#txtPWD").val() + "&RoleID=" + $("#selRole").val() + "&NickName=" + $("#txtNickName").val();
+                    $.ajax({
+                        type: "POST",
+                        url: "./cgi-bin/Tbl_User_InfoModify.cgi",
+                        contentType: "application/x-www-form-urlencoded",
+                        data: data,
+                        success: function (json) {
+                            list = eval("(" + json + ")");
+                            if (json.jsn == 0) {
+                                alert("保存失败");
+                            } else {
+                                alert("保存成功");
+                                window.location.href = "User.html";
+                            }
+                        }
+                    });
+                }
+            });
+        })
+        function CheckValid() {
+            if ($("#txtUserName").val() == "") {
+                alert("用户名不能为空");
+                $("#txtUserName").focus();
+                return false;
+            }
+            if ($("#txtPWD").val() == "") {
+                alert("密码不能为空");
+                $("#txtPWD").focus();
+                return false;
+            }
+            if ($("#txtPWD").val() != $("#txtPWD2").val()) {
+                alert("两次输入的密码不相等");
+                $("#txtPWD").focus();
+                return false;
+            }
+            if ($("#txtNickName").val() == "") {
+                $("#txtNickName").val($("#txtUserName").val());
+            }
+            return true;
+        }
+    </script>
+</head>
+<body class="workarea">
+	<div class="workTitle">
+		<h2></h2>
+	</div>
+	<div class="workCov">
+		<div class="tabCon">
+			<strong class="conT">用户编辑</strong>
+			<div class="conBox">
+				<form>
+				<ul class="searForm">
+					<li>
+						
+						<label class="searLab">用户名称</label>
+						<span class="searInput"><input id="txtUserName" type="text" value="" /></span>
+						
+					</li>
+                    <li>
+						
+						<label class="searLab">用户昵称</label>
+						<span class="searInput"><input id="txtNickName" type="text" value="" /></span>
+						
+					</li>
+					<li>
+						<label class="searLab">用户类别</label>
+						<span class="searInput"> 
+                            <select id="selRole">
+                                <option value="1">超级管理员</option>
+                                <option value="2">管理员</option>
+                                <option value="3">一般用户</option>
+                            </select></span>
+					</li>
+                    <li>
+						<label class="searLab">密码</label>
+						<span class="searInput"><input id="txtPWD" type="password" value="" /></span>
+					</li>
+                     <li>
+						<label class="searLab">确认密码</label>
+						<span class="searInput"><input id="txtPWD2" type="password" value="" /></span>
+					</li>
+					<li>
+						<label class="searLab">&nbsp</label>
+						<span class="searInput">
+                            <input id="btnSave" type="button" value="保存" /></span>
+						<label class="searLab">&nbsp</label>
+						<span class="searInput">
+                                <input type="button" value="取消" onClick="location = 'User.html'" /></span>
+					</li>
+				</ul>
+				</form>
+			</div>
+
+			
+		</div>
+	</div>
+</body>
+</html>

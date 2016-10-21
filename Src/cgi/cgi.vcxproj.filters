@@ -1,0 +1,354 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="SQLite3">
+      <UniqueIdentifier>{db4ebc81-cfff-4466-a962-db89fdcbefff}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Tbl_User_InfoAdd.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_User_InfoDelete.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_User_InfoFind.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_User_InfoFindPage.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_User_InfoFindSingle.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_User_InfoModify.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Article_InfoAdd.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Article_InfoDelete.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Article_InfoFind.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Article_InfoFindPage.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Article_InfoModify.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Article_TypeAdd.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Article_TypeDelete.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Article_TypeFind.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Article_TypeFindPage.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Article_TypeModify.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Camera_InfoAdd.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Camera_InfoDelete.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Camera_InfoFind.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Camera_InfoFindPage.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Camera_InfoModify.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Device_ControlAdd.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Device_ControlDelete.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Device_ControlFind.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Device_ControlFindPage.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Device_ControlModify.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Device_HistoryAdd.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Device_HistoryDelete.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Device_HistoryFind.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Device_HistoryFindPage.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Device_HistoryModify.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Device_InfoAdd.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Device_InfoDelete.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Device_InfoFind.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Device_InfoFindPage.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Device_InfoModify.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Device_ParameterAdd.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Device_ParameterDelete.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Device_ParameterFind.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Device_ParameterFindPage.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Device_ParameterModify.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_RFID_InfoAdd.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_RFID_InfoDelete.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_RFID_InfoFind.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_RFID_InfoFindPage.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_RFID_InfoModify.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Role_InfoAdd.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Role_InfoDelete.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Role_InfoFind.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Role_InfoFindPage.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Role_InfoModify.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Storage_InfoAdd.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Storage_InfoDelete.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Storage_InfoFind.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Storage_InfoFindPage.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Storage_InfoModify.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_System_ParameterAdd.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_System_ParameterDelete.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_System_ParameterFind.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_System_ParameterFindPage.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_System_ParameterModify.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Article_InfoFindSingle.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Article_TypeFindSingle.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Camera_InfoFindSingle.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Device_ControlFindSingle.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Device_HistoryFindSingle.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Device_InfoFindSingle.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Device_ParameterFindSingle.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_RFID_HistoryAdd.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_RFID_HistoryDelete.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_RFID_HistoryFind.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_RFID_HistoryFindPage.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_RFID_HistoryFindSingle.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_RFID_HistoryModify.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_RFID_InfoFindSingle.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Role_InfoFindSingle.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_Storage_InfoFindSingle.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tbl_System_ParameterFindSingle.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="History_StorageFind.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="History_DeviceFindPage.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Res\SQLite3\SqlHelper_Sqlite3.c">
+      <Filter>SQLite3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Res\SQLite3\Tbl_Article_InfoDAL.c">
+      <Filter>SQLite3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Res\SQLite3\Tbl_Article_TypeDAL.c">
+      <Filter>SQLite3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Res\SQLite3\Tbl_Camera_InfoDAL.c">
+      <Filter>SQLite3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Res\SQLite3\Tbl_Device_ControlDAL.c">
+      <Filter>SQLite3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Res\SQLite3\Tbl_Device_HistoryDAL.c">
+      <Filter>SQLite3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Res\SQLite3\Tbl_Device_InfoDAL.c">
+      <Filter>SQLite3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Res\SQLite3\Tbl_Device_ParameterDAL.c">
+      <Filter>SQLite3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Res\SQLite3\Tbl_RFID_HistoryDAL.c">
+      <Filter>SQLite3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Res\SQLite3\Tbl_RFID_InfoDAL.c">
+      <Filter>SQLite3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Res\SQLite3\Tbl_Role_InfoDAL.c">
+      <Filter>SQLite3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Res\SQLite3\Tbl_Storage_InfoDAL.c">
+      <Filter>SQLite3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Res\SQLite3\Tbl_System_ParameterDAL.c">
+      <Filter>SQLite3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Res\SQLite3\Tbl_User_InfoDAL.c">
+      <Filter>SQLite3</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="sqlite3.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Res\SQLite3\SqlHelper_Sqlite3.h">
+      <Filter>SQLite3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Res\SQLite3\sqlite3.h">
+      <Filter>SQLite3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Res\SQLite3\Tbl_Article_InfoDAL.h">
+      <Filter>SQLite3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Res\SQLite3\Tbl_Article_TypeDAL.h">
+      <Filter>SQLite3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Res\SQLite3\Tbl_Camera_InfoDAL.h">
+      <Filter>SQLite3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Res\SQLite3\Tbl_Device_ControlDAL.h">
+      <Filter>SQLite3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Res\SQLite3\Tbl_Device_HistoryDAL.h">
+      <Filter>SQLite3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Res\SQLite3\Tbl_Device_InfoDAL.h">
+      <Filter>SQLite3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Res\SQLite3\Tbl_Device_ParameterDAL.h">
+      <Filter>SQLite3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Res\SQLite3\Tbl_RFID_HistoryDAL.h">
+      <Filter>SQLite3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Res\SQLite3\Tbl_RFID_InfoDAL.h">
+      <Filter>SQLite3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Res\SQLite3\Tbl_Role_InfoDAL.h">
+      <Filter>SQLite3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Res\SQLite3\Tbl_Storage_InfoDAL.h">
+      <Filter>SQLite3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Res\SQLite3\Tbl_System_ParameterDAL.h">
+      <Filter>SQLite3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Res\SQLite3\Tbl_User_InfoDAL.h">
+      <Filter>SQLite3</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

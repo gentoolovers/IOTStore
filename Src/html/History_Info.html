@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+    <link href="My97DatePicker/skin/WdatePicker.css" rel="stylesheet" />
+    <link href="style/style.css" type="text/css" rel="stylesheet"/>
+    <script type="text/javascript" src="script/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="script/myjs.js"></script>
+    <script src="My97DatePicker/WdatePicker.js"></script>
+     <script src="script/UnitPage.js"></script>
+    <script type="text/javascript">
+        var sCon = " ";
+        var sSort = " order by HistoryID";
+        var iCurrentPageIndex = 1;
+        var iPageSize = 10;
+        var iTotalPageCount = 0;
+        var device;
+        var storage
+        $(function () {
+            $.ajax({
+                async: false,
+                type: "POST",
+                url: "./cgi-bin/Tbl_Device_InfoFind.cgi",
+                contentType: "application/x-www-form-urlencoded",
+                data: "sCon= ",
+                success: function (json) {
+                    list = eval("(" + json + ")");
+                    device = list.jsn;
+                }
+            });
+            $.ajax({
+                async: false,
+                type: "POST",
+                url: "./cgi-bin/Tbl_Storage_InfoFind.cgi",
+                contentType: "application/x-www-form-urlencoded",
+                data: "sCon= ",
+                success: function (json) {
+                    list = eval("(" + json + ")");
+                    storage = list.jsn;
+                    var str = "<option value='0'>--全 选--</option>";
+                    $.each(storage, function (i, n) {
+                        str += "<option value='" + n.StorageID + "'>" + n.StorageName + "</option>";
+                    });
+                    $("#selStorage").html(str);
+                }
+            });
+            DataBind();
+        })
+
+        function DataBind() {
+            var data = "sCon=" + sCon + "&sSort=" + sSort + "&iPageSize=" + iPageSize + "&iCurrentPageIndex=" + iCurrentPageIndex;
+            $.ajax({
+                async: false,
+                type: "POST",
+                url: "./cgi-bin/Tbl_Device_HistoryFindPage.cgi",
+                contentType: "application/x-www-form-urlencoded",
+                data: data,
+                success: function (json) {
+                    var list = eval("(" + json + ")");
+                    if (!noresultSet(list.iTotalPageCount)) return false;
+                    UnitPage(list.iTotalPageCount);
+                    $(".table1>tbody>tr").remove();
+                    $.each(list.jsn, function (i, n) {
+                        var str = "<tr>";
+                        for (i = 0; i < device.length; i++) {
+                            if (device[i].DeviceID == n.DeviceID) {
+                                str += "<td class=\"alignL\">" + device[i].DeviceName + "</td>";
+                                for (s = 0; s < storage.length; s++) {
+                                    if (storage[s].StorageID == device[i].StorageID)
+                                        str += "<td class=\"alignL\">" + storage[s].StorageName + "</td>";
+                                }
+                            }
+
+                        }
+                        str += "<td class=\"alignM\">" + n.Temperature + "</td>";
+                        str += "<td class=\"alignM\">" + n.Humidity + "</td>";
+                        str += "<td class=\"alignM\">" + n.Luminosity + "</td>";
+                        str += "<td class=\"alignM\">" + n.Electricity + "</td>";
+                        if (n.IsAlarm == 1) {
+                            str += '<td class="alignM"><span style="background:red;border-radius:5px;color:rgb(67, 50, 85);padding:3px 5px;">报警</span></td>';
+                        } else {
+                            str += '<td class="alignM"><span style="background:green;border-radius:5px;color:black;padding:3px 5px;">正常</span></td>';
+                        }
+                        str += "<td class=\"alignM\">" + n.HistoryDate + "</td>";
+                        str += "</tr>";
+                        $(".table1>tbody").append(str);
+                        setTable();
+                    });
+
+                }
+            });
+        }
+
+        function btnQuery_Click() {
+            sCon = "";
+            if ($("#selStorage").val() != 0) {
+                sCon += " and DeviceID IN (select DeviceID from tbl_device_info where StorageID=" + $("#selStorage").val() + ")";
+            }
+            if ($("#txtDeviceName").val() != "") {
+                sCon += " and DeviceID IN (select DeviceID from tbl_device_info where DeviceName='" + $("#txtDeviceName").val() + "')";
+            }
+            if ($("#txtBeginDateTime").val() != "") {
+                sCon += " and HistoryDate >= '" + $("#txtBeginDateTime").val() + "'";
+            }
+            if ($("#txtEndDateTime").val() != "") {
+                sCon += " and HistoryDate <= '" + $("#txtEndDateTime").val() + "'";
+            }
+            iCurrentPageIndex = 1;
+            DataBind();
+        };
+
+       
+
+        
+    </script>
+</head>
+
+<body class="workarea">
+	<div class="workTitle">
+		<h2><span class="path bolder">您当前的位置：</span><a href="#">信息查询</a><span>&gt;&gt;</span><a href="#">历史记录查询</a></h2>
+	</div>
+	<div class="workCov">
+		<div class="tabCon">
+			<strong class="conT">组合查询</strong>
+			<div class="conBox">
+				<form>
+				<ul class="searForm">
+					<li>
+						<label class="searLab">仓库信息</label>
+						<span class="searInput"> 
+                            <select id="selStorage">
+                             
+                            </select></span>
+						<label class="searLab">设备名称</label>
+						<span class="searInput"><input id="txtDeviceName" type="text" /></span>
+					</li>
+					<li>
+						<label class="searLab">起始日期</label>
+						<span class="searInput"><input id="txtBeginDateTime" type="text" class="Wdate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',startDate:'%y-%M-%d'})" /></span>
+                        <label class="searLab">结束日期</label>
+						<span class="searInput"><input id="txtEndDateTime" type="text" class="Wdate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',startDate:'%y-%M-%d'})" /></span>
+						<label class="searLab">&nbsp</label>
+                        <span class="searInput"><input type="button" value="查询" onclick="btnQuery_Click()" /></span>
+					</li>
+				</ul>
+				</form>
+			</div>
+
+			<strong class="conT">查询结果</strong>
+			<div class="conBox">
+				<table class="table1" cellpadding="0" cellspacing="1">
+					<thead>
+                        <tr>
+						<td class="alignL">设备名称</td>
+                        <td class="alignL">所属仓库</td>
+						<td class="alignM">温度℃</td>
+						<td class="alignM">湿度%</td>
+						<td class="alignM">光度</td>
+                        <td class="alignM">电量</td>
+                        <td class="alignM">报警</td>
+                        <td class="alignM">上传日期</td>
+					    </tr>
+					</thead>
+					<tbody>
+						
+					</tbody>
+					<tfoot>
+						<tr><td colspan="5">
+                                <span>
+                                    <label id="labPageInfo">请输入条件，点击查询</label></span>
+                                <span>
+                                    <input id="btnFirst" type="button" value="首页" onclick='btnPage_Click("First")' /></span>
+                                <span>
+                                    <input id="btnPrev" type="button" value="上一页" onclick='btnPage_Click("Prev")' /></span>
+                                <span>
+                                    <input id="btnNext" type="button" value="下一页" onclick='btnPage_Click("Next")' /></span>
+                                <span>
+                                    <input id="btnLast" type="button" value="末页" onclick='btnPage_Click("Last")' /></span>
+
+                                <span style="margin-left: 5px;">跳转到第
+                                    <select id="selPage" style="width: 40px;" onchange="SelPage_SelectedIndexChanged()">
+                                    </select>页
+                                </span>
+						</td></tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

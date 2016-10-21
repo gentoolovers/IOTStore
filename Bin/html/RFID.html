@@ -1,0 +1,285 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <link href="style/style.css" type="text/css" rel="stylesheet"/>
+    <script type="text/javascript" src="script/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="script/myjs.js"></script>
+    <script src="script/UnitPage.js"></script>
+    <script type="text/javascript">
+        var sCon = " ";
+        var sSort = " order by RFID_ID";
+        var iCurrentPageIndex = 1;
+        var iPageSize = 10;
+        var iTotalPageCount = 0;
+        var article;
+        $(function () {
+            $.ajax({
+                async: false,
+                type: "POST",
+                url: "./cgi-bin/Tbl_Article_InfoFind.cgi",
+                contentType: "application/x-www-form-urlencoded",
+                data: "sCon= ",
+                success: function (json) {
+                    list = eval("(" + json + ")");
+                    article = list.jsn;
+                    var str = "<option value='0'>--全 选--</option>";
+                    $.each(article, function (i, n) {
+                        str += "<option value='" + n.ArticleID + "'>" + n.ArticleName + "</option>";
+                    });
+                    $("#selArticle").html(str);
+                }
+            });
+            DataBind();
+        })
+
+        function DataBind() {
+            var data = "sCon=" + sCon + "&sSort=" + sSort + "&iPageSize=" + iPageSize + "&iCurrentPageIndex=" + iCurrentPageIndex;
+            $.ajax({
+                async: false,
+                type: "POST",
+                url: "./cgi-bin/Tbl_RFID_InfoFindPage.cgi",
+                contentType: "application/x-www-form-urlencoded",
+                data: data,
+                success: function (json) {
+                    var list = eval("(" + json + ")");
+                    if (!noresultSet(list.iTotalPageCount)) return false;
+                    UnitPage(list.iTotalPageCount);
+                    $(".table1>tbody>tr").remove();
+                    $.each(list.jsn, function (i, n) {
+                        var str = "<tr>";
+                        str += "<td class=\"alignM\">" + n.RFID_ID + "</td>";
+                        str += "<td class=\"alignL\">" + n.RFID + "</td>";
+                        for (i = 0; i < article.length; i++) {
+                            if (article[i].ArticleID == n.ArticleID)
+                                str += "<td class=\"alignL\">" + article[i].ArticleName + "</td>";
+                        }
+                        str += "<td class=\"alignM\">";
+                        str += '<a target="_self" href="EditRFID.html?RFID_ID=' + n.RFID_ID + '"><input type="button" value="修改"/></a>';
+                        str += '<a target="_self" href="###"><input type="button" value="删除" onclick="isDelete(' + n.RFID_ID + ')"/></a>';
+                        str += "</td>";
+                        str += "</tr>";
+                        $(".table1>tbody").append(str);
+                        setTable();
+                    });
+
+                }
+            });
+        }
+
+        function btnQuery_Click() {
+            sCon = "";
+            if ($("#selArticle").val() != 0) {
+                sCon += " and ArticleID = " + $("#selArticle").val();
+            }
+            if ($("#txtDeviceName").val() != "") {
+                sCon += " and RFID = '" + $("#txtRFID").val() + "'";
+            }
+            iCurrentPageIndex = 1;
+            DataBind();
+        };
+
+        function isDelete(ID) {
+            if (!confirm("确实要删除吗？")) return false;
+            $.ajax({
+                type: "POST",
+                url: "./cgi-bin/Tbl_RFID_InfoDelete.cgi",
+                contentType: "application/x-www-form-urlencoded",
+                data: "sCon= and RFID_ID='" + ID + "'",
+                success: function (json) {
+                    list = eval("(" + json + ")");
+                    if (list.jsn == 0) {
+                        alert("删除失败");
+                    } else {
+                        alert("删除成功");
+                        DataBind();
+                    }
+                }
+            });
+        }
+
+        
+    </script>
+</head>
+<body class="workarea">
+	<div class="workTitle">
+		<h2><span class="path bolder">您当前的位置：</span><a href="#">仓储管理</a><span>&gt;&gt;</span><a href="#">RFID射频卡</a></h2>
+	</div>
+	<div class="workCov">
+		<div class="tabCon">
+			<strong class="conT">组合查询</strong>
+			<div class="conBox">
+				<form>
+				<ul class="searForm">
+					<li>
+						<label class="searLab">RFID</label>
+						<span class="searInput"><input id="txtRFID" type="text" /></span>
+                        <label class="searLab">所属物品</label>
+						<span class="searInput">
+                            <select id="selArticle">
+                                <option>物品</option>
+                                <option>物品</option>
+                                <option>物品</option>
+                                <option>物品</option>
+                                <option>物品</option>
+                            </select></span>
+                        
+                        <label class="searLab">&nbsp</label>
+                        <span class="searInput">
+                            <input id="btnQuery" type="button" value="查询" onclick="btnQuery_Click()" /></span>
+                        <label class="searLab">&nbsp</label>
+                        <span class="searInput">
+                            <input type="button" value="新建" onClick="location = 'EditRFID.html'" /></span>
+                    </li>
+				</ul>
+				</form>
+			</div>
+
+			<strong class="conT">查询结果</strong>
+			<div class="conBox">
+				<table class="table1" cellpadding="0" cellspacing="1">
+					<thead>
+						<td class="alignM" width="10%">编号</td>
+						<td class="alignL width="20%"">RFID</td>
+                        <td class="alignL width="20%"">所属物品</td>
+						<td class="alignM" width="20%">操 作</td>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="alignM">1</td>
+							<td class="alignL">SPKBH01258457</td>
+                            <td class="alignL">物品1</td>
+							<td class="alignM"><a target="_self" href="EditRFID.html"><input type="button" value="修改"/></a></td>
+						</tr>
+						<tr>
+							<td class="alignM">2</td>
+							<td class="alignL">SPKBH01258457</td>
+                            <td class="alignL">物品1</td>
+							<td class="alignM">华清仓库</td>
+							<td class="alignM"><a target="_self" href="EditRFID.html"><input type="button" value="修改"/></a></td>
+						</tr>
+						<tr>
+							<td class="alignM">3</td>
+							<td class="alignL">SPKBH01258457</td>
+                            <td class="alignL">物品1</td>
+							<td class="alignM">华清仓库</td>
+							<td class="alignM"><a target="_self" href="EditRFID.html"><input type="button" value="修改"/></a></td>
+						</tr>
+						<tr>
+							<td class="alignM">4</td>
+							<td class="alignL">SPKBH01258457</td>
+                            <td class="alignL">物品1</td>
+							<td class="alignM">华清仓库</td>
+							<td class="alignM"><a target="_self" href="EditRFID.html"><input type="button" value="修改"/></a></td>
+						</tr>
+						<tr>
+							<td class="alignM">1</td>
+							<td class="alignL">SPKBH01258457</td>
+                            <td class="alignL">物品1</td>
+							<td class="alignM">华清仓库</td>
+							<td class="alignM"><a target="_self" href="EditRFID.html"><input type="button" value="修改"/></a></td>
+						</tr>
+						<tr>
+							<td class="alignM">2</td>
+							<td class="alignL">SPKBH01258457</td>
+                            <td class="alignL">物品1</td>
+							<td class="alignM">华清仓库</td>
+							<td class="alignM"><a target="_self" href="EditRFID.html"><input type="button" value="修改"/></a></td>
+						</tr>
+						<tr>
+							<td class="alignM">3</td>
+							<td class="alignL">SPKBH01258457</td>
+                            <td class="alignL">物品1</td>
+							<td class="alignM">华清仓库</td>
+							<td class="alignM"><a target="_self" href="EditRFID.html"><input type="button" value="修改"/></a></td>
+						</tr>
+						<tr>
+							<td class="alignM">4</td>
+							<td class="alignL">SPKBH01258457</td>
+                            <td class="alignL">物品1</td>
+							<td class="alignM">华清仓库</td>
+							<td class="alignM"><a target="_self" href="EditRFID.html"><input type="button" value="修改"/></a></td>
+						</tr>
+                        <tr>
+							<td class="alignM">1</td>
+							<td class="alignL">SPKBH01258457</td>
+                            <td class="alignL">物品1</td>
+							<td class="alignM">华清仓库</td>
+							<td class="alignM"><a target="_self" href="EditRFID.html"><input type="button" value="修改"/></a></td>
+						</tr>
+						<tr>
+							<td class="alignM">2</td>
+							<td class="alignL">SPKBH01258457</td>
+                            <td class="alignL">物品1</td>
+							<td class="alignM">华清仓库</td>
+							<td class="alignM"><a target="_self" href="EditRFID.html"><input type="button" value="修改"/></a></td>
+						</tr>
+						<tr>
+							<td class="alignM">3</td>
+							<td class="alignL">SPKBH01258457</td>
+                            <td class="alignL">物品1</td>
+							<td class="alignM">华清仓库</td>
+							<td class="alignM"><a target="_self" href="EditRFID.html"><input type="button" value="修改"/></a></td>
+						</tr>
+						<tr>
+							<td class="alignM">4</td>
+							<td class="alignL">SPKBH01258457</td>
+                            <td class="alignL">物品1</td>
+							<td class="alignM">华清仓库</td>
+							<td class="alignM"><a target="_self" href="EditRFID.html"><input type="button" value="修改"/></a></td>
+						</tr>
+                        <tr>
+							<td class="alignM">1</td>
+							<td class="alignL">SPKBH01258457</td>
+                            <td class="alignL">物品1</td>
+							<td class="alignM">华清仓库</td>
+							<td class="alignM"><a target="_self" href="EditRFID.html"><input type="button" value="修改"/></a></td>
+						</tr>
+						<tr>
+							<td class="alignM">2</td>
+							<td class="alignL">SPKBH01258457</td>
+                            <td class="alignL">物品1</td>
+							<td class="alignM">华清仓库</td>
+							<td class="alignM"><a target="_self" href="EditRFID.html"><input type="button" value="修改"/></a></td>
+						</tr>
+						<tr>
+							<td class="alignM">3</td>
+							<td class="alignL">SPKBH01258457</td>
+                            <td class="alignL">物品1</td>
+							<td class="alignM">华清仓库</td>
+							<td class="alignM"><a target="_self" href="EditRFID.html"><input type="button" value="修改"/></a></td>
+						</tr>
+						<tr>
+							<td class="alignM">4</td>
+							<td class="alignL">SPKBH01258457</td>
+                            <td class="alignL">物品1</td>
+							<td class="alignM">华清仓库</td>
+							<td class="alignM"><a target="_self" href="EditRFID.html"><input type="button" value="修改"/></a></td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr><td colspan="5">
+                                <span>
+                                    <label id="labPageInfo">请输入条件，点击查询</label></span>
+                                <span>
+                                    <input id="btnFirst" type="button" value="首页" onclick='btnPage_Click("First")' /></span>
+                                <span>
+                                    <input id="btnPrev" type="button" value="上一页" onclick='btnPage_Click("Prev")' /></span>
+                                <span>
+                                    <input id="btnNext" type="button" value="下一页" onclick='btnPage_Click("Next")' /></span>
+                                <span>
+                                    <input id="btnLast" type="button" value="末页" onclick='btnPage_Click("Last")' /></span>
+
+                                <span style="margin-left: 5px;">跳转到第
+                                    <select id="selPage" style="width: 40px;" onchange="SelPage_SelectedIndexChanged()">
+                                    </select>页
+                                </span>
+						</td></tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

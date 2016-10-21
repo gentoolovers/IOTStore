@@ -1,0 +1,188 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="style/style.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="script/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="script/myjs.js"></script>
+    <script src="script/jquery.urlGet.js"></script>
+    <script type="text/javascript">
+        var DeviceID = $.urlGet()['DeviceID'];
+        var obj;
+        $(function () {
+            $.ajax({
+                async: false,
+                type: "POST",
+                url: "./cgi-bin/Tbl_Storage_InfoFind.cgi",
+                contentType: "application/x-www-form-urlencoded",
+                data: "sCon= ",
+                success: function (json) {
+                    list = eval("(" + json + ")");
+                    storage = list.jsn;
+                    var str = "";
+                    $.each(storage, function (i, n) {
+                        str += "<option value='" + n.StorageID + "'>" + n.StorageName + "</option>";
+                    });
+                    $("#selStorage").html(str);
+                }
+            });
+            if (DeviceID != undefined) {
+                $.ajax({
+                    async: false,
+                    type: "POST",
+                    url: "./cgi-bin/Tbl_Device_InfoFindSingle.cgi",
+                    contentType: "application/x-www-form-urlencoded",
+                    data: "sCon= and DeviceID='" + DeviceID + "'",
+                    success: function (json) {
+                        list = eval("(" + json + ")");
+                        obj = list.jsn[0];
+                        $("#txtIdentification").val(obj.Identification);
+                        $("#txtDeviceName").val(obj.DeviceName);
+                        $("#selStorage").val(obj.StorageID);
+                    }
+                });
+            }
+            $("#btnSave").click(function () {
+                if (!CheckValid()) return false;
+
+                if (DeviceID == undefined) {
+                    var data = "DeviceID=0&StorageID=" + $("#selStorage").val() + "&DeviceName=" + $("#txtDeviceName").val() + "&Identification=" + $("#txtIdentification").val() + "&IsOnLine=0&IsAlarm=0";
+                    $.ajax({
+                        async: false,
+                        type: "POST",
+                        url: "./cgi-bin/Tbl_Device_InfoAdd.cgi",
+                        contentType: "application/x-www-form-urlencoded",
+                        data: data,
+                        success: function (json) {
+                            list = eval("(" + json + ")");
+                            if (json.jsn == 0) {
+                                alert("保存失败");
+                            } else {
+                                alert("保存成功");
+                                window.location.href = "Device.html";
+                            }
+                        }
+                    });
+                } else {
+                    var data = "DeviceID=" + DeviceID + "&StorageID=" + $("#selStorage").val() + "&DeviceName=" + $("#txtDeviceName").val() + "&Identification=" + $("#txtIdentification").val() + "&IsOnLine=" + obj.IsOnLine + "&IsAlarm=" + obj.IsAlarm;
+                    $.ajax({
+                        type: "POST",
+                        url: "./cgi-bin/Tbl_Device_InfoModify.cgi",
+                        contentType: "application/x-www-form-urlencoded",
+                        data: data,
+                        success: function (json) {
+                            list = eval("(" + json + ")");
+                            if (json.jsn == 0) {
+                                alert("保存失败");
+                            } else {
+                                AddParaAndControl();
+                                
+                            }
+                        }
+                    });
+                }
+            });
+        })
+        function AddParaAndControl() {
+            var device;
+            $.ajax({
+                async: false,
+                type: "POST",
+                url: "./cgi-bin/Tbl_Device_InfoFindSingle.cgi",
+                contentType: "application/x-www-form-urlencoded",
+                data: "sCon= and Identification='" + $("#txtIdentification").val() + "'",
+                success: function (json) {
+                    list = eval("(" + json + ")");
+                    device = list.jsn[0];
+                }
+            });
+            $.ajax({
+                async: false,
+                type: "POST",
+                url: "./cgi-bin/Tbl_Device_ParameterAdd.cgi",
+                contentType: "application/x-www-form-urlencoded",
+                data: "DeviceID=" + device.DeviceID + "&MinTem=0&MaxTem=100&MinHum=0&MaxHum=100&MinLit=0&MaxLit=100&TimeSet=3000$IsSet=1",
+                success: function (json) {
+                    
+                }
+            });
+            $.ajax({
+                async: false,
+                type: "POST",
+                url: "./cgi-bin/Tbl_Device_ControlAdd.cgi",
+                contentType: "application/x-www-form-urlencoded",
+                data: "DeviceID=" + device.DeviceID + "&&LedSet=0&BeepSet=0&SegSet=0&FanSet=0&RFIDSet=0&AlarmSet=0$IsSet=1",
+                success: function (json) {
+                    alert("保存成功");
+                    window.location.href = "Device.html";
+                }
+            });
+        }
+        function CheckValid() {
+            if ($("#txtIdentification").val() == "") {
+                alert("设备标识不能为空");
+                $("#txtIdentification").focus();
+                return false;
+            }
+            if ($("#txtDeviceName").val() == "") {
+                alert("设备名称不能为空");
+                $("#txtDeviceName").focus();
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</head>
+<body class="workarea">
+    <div class="workTitle">
+        <h2></h2>
+    </div>
+    <div class="workCov">
+        <div class="tabCon">
+            <strong class="conT">设备编辑</strong>
+            <div class="conBox">
+                <form>
+                    <ul class="searForm">
+                        <li>
+
+                            <label class="searLab">设备标识</label>
+                            <span class="searInput">
+                                <input id="txtIdentification" type="text" value="" /></span>
+
+                        </li>
+                        <li>
+                            <label class="searLab">设备名称</label>
+                            <span class="searInput">
+                                <input id="txtDeviceName" type="text" value="" /></span>
+                        </li>
+                        <li>
+                            <label class="searLab">所属仓库</label>
+                            <span class="searInput">
+                                <select id="selStorage">
+                                    <option>华清仓库1</option>
+                                    <option>华清仓库2</option>
+                                    <option>华清仓库3</option>
+                                    <option>华清仓库4</option>
+                                    <option>华清仓库5</option>
+                                </select></span>
+                        </li>
+                        <li>
+                            <label class="searLab">&nbsp</label>
+                            <span class="searInput">
+                                <input id="btnSave" type="button" value="保存" /></span>
+                            <label class="searLab">&nbsp</label>
+                            <span class="searInput">
+                                <a target="_self" href="Device.html">
+                                    <input type="button" value="取消" onclick="location = 'Device.html'" /></a></span>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+
+
+        </div>
+    </div>
+</body>
+</html>

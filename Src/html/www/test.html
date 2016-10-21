@@ -1,0 +1,54 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>C+CGI+Ajax在S3C2440中的应用</title>
+    <script language="JavaScript" src="jquery-1.4.2.min.js"></script>
+    <script type="text/javascript">
+        function getXml() {
+            alert("开始ajax");
+            var url = './cgi-bin/ajaxtest.cgi';
+            $.ajax({
+                type: 'post',
+                url: url,
+                contentType: "application/json;charset=utf-8",
+                success: function (json) {
+                    alert(json);
+                    //list=JSON.parse(json);
+                    list = eval("(" + json + ")");
+                    $("#xmlname").html(list.name);
+                    //$(xml).find('Command').each(function(){
+                    //var name=$(this).find('Name').text();
+                    //alert(name);
+                    //$('#xmlname').val(name);
+                    //})
+                }
+            });
+        };
+        function sendJson() {
+            alert("begin send");
+            $.ajax({
+                type: "POST",
+                url: "./cgi-bin/getajax.cgi",
+                contentType: "application/x-www-form-urlencoded",
+                data: "name=hello&pwd=world",
+                success: function (data) {
+                    alert(data);
+                }
+            });
+        };
+		</script>
+</head>
+<body>
+    <form action="cgi-bin/ajaxtest.cgi" method="post">
+        <input
+            type="submit">
+    </form>
+    <h3>获取服务器当前时间</h3>
+    <p>服务器当前时间是：<div id="xmlname"></div>
+    </p>
+    <input id="btnSend" type="button" value="提交" onclick="getXml()" />
+    <input type="button" value="send" onclick="sendJson()" />
+    <a href="./cgi-bin/ajaxtest.cgi">to cgi page!</a>
+</body>
+</html>
+

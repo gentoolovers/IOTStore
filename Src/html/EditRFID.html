@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <link href="style/style.css" type="text/css" rel="stylesheet"/>
+    <script type="text/javascript" src="script/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="script/myjs.js"></script>
+    <script src="script/jquery.urlGet.js"></script>
+    <script type="text/javascript">
+        var RFID_ID = $.urlGet()['RFID_ID'];
+        var obj;
+        $(function () {
+            $.ajax({
+                async: false,
+                type: "POST",
+                url: "./cgi-bin/Tbl_Article_InfoFind.cgi",
+                contentType: "application/x-www-form-urlencoded",
+                data: "sCon= ",
+                success: function (json) {
+                    list = eval("(" + json + ")");
+                    var storage = list.jsn;
+                    var str = "";
+                    $.each(storage, function (i, n) {
+                        str += "<option value='" + n.ArticleID + "'>" + n.ArticleName + "</option>";
+                    });
+                    $("#selArticle").html(str);
+                }
+            });
+           
+            if (RFID_ID != undefined) {
+                $.ajax({
+                    async: false,
+                    type: "POST",
+                    url: "./cgi-bin/Tbl_RFID_InfoFindSingle.cgi",
+                    contentType: "application/x-www-form-urlencoded",
+                    data: "sCon= and RFID_ID='" + RFID_ID + "'",
+                    success: function (json) {
+                        list = eval("(" + json + ")");
+                        obj = list.jsn[0];
+                        $("#txtRFID").val(obj.RFID);
+                        $("#selArticle").val(obj.ArticleID);
+                    }
+                });
+            }
+            $("#btnSave").click(function () {
+                if (!CheckValid()) return false;
+                if (RFID_ID == undefined) {
+                    var data = "RFID_ID=0&RFID=" + $("#txtRFID").val() + "&ArticleID=" + $("#selArticle").val();
+                    $.ajax({
+                        type: "POST",
+                        url: "./cgi-bin/Tbl_RFID_InfoAdd.cgi",
+                        contentType: "application/x-www-form-urlencoded",
+                        data: data,
+                        success: function (json) {
+                            list = eval("(" + json + ")");
+                            if (json.jsn == 0) {
+                                alert("保存失败");
+                            } else {
+                                alert("保存成功");
+                                window.location.href = "RFID.html";
+                            }
+                        }
+                    });
+                } else {
+                    var data = "RFID_ID=" + RFID_ID + "&RFID=" + $("#txtRFID").val() + "&ArticleID=" + $("#selArticle").val();
+                    $.ajax({
+                        type: "POST",
+                        url: "./cgi-bin/Tbl_RFID_InfoModify.cgi",
+                        contentType: "application/x-www-form-urlencoded",
+                        data: data,
+                        success: function (json) {
+                            list = eval("(" + json + ")");
+                            if (json.jsn == 0) {
+                                alert("保存失败");
+                            } else {
+                                alert("保存成功");
+                                window.location.href = "RFID.html";
+                            }
+                        }
+                    });
+                }
+            });
+        })
+        function CheckValid() {
+            if ($("#txtRFID").val() == "") {
+                alert("RFID不能为空");
+                $("#txtRFID").focus();
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</head>
+<body class="workarea">
+	<div class="workTitle">
+		<h2></h2>
+	</div>
+	<div class="workCov">
+		<div class="tabCon">
+			<strong class="conT">RFID编辑</strong>
+			<div class="conBox">
+				<form>
+				<ul class="searForm">
+					<li>
+						<label class="searLab">RFID</label>
+						<span class="searInput"><input id="txtRFID" type="text" value="" /></span>
+					</li>
+					<li>
+						<label class="searLab">所属物品</label>
+						<span class="searInput"> 
+                            <select id="selArticle">
+                                <option>物品</option>
+                                <option>物品</option>
+                                <option>物品</option>
+                                <option>物品</option>
+                                <option>物品</option>
+                            </select></span>
+					</li>
+					<li>
+						<label class="searLab">&nbsp</label>
+						<span class="searInput">
+                            <input id="btnSave" type="button" value="保存" /></span>
+						<label class="searLab">&nbsp</label>
+						<span class="searInput">
+                            <input type="button" value="取消" onclick="location = 'RFID.html'" /></span>
+					</li>
+				</ul>
+				</form>
+			</div>
+
+			
+		</div>
+	</div>
+</body>
+</html>

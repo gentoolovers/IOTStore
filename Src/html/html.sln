@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "html", "http://localhost:1178", "{71AD7BEB-C7DC-43BF-BEBB-31567BE76DAD}"
+	ProjectSection(WebsiteProperties) = preProject
+		UseIISExpress = "true"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv3.5"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_1178"
+		Debug.AspNetCompiler.PhysicalPath = "..\html\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_1178\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_1178"
+		Release.AspNetCompiler.PhysicalPath = "..\html\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_1178\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "..\html\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cgi-bin", "cgi-bin\cgi-bin.vcxproj", "{7A04D058-EBB3-4CC3-9765-1DA727635443}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|Win32 = Debug|Win32
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{71AD7BEB-C7DC-43BF-BEBB-31567BE76DAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71AD7BEB-C7DC-43BF-BEBB-31567BE76DAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71AD7BEB-C7DC-43BF-BEBB-31567BE76DAD}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{71AD7BEB-C7DC-43BF-BEBB-31567BE76DAD}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{71AD7BEB-C7DC-43BF-BEBB-31567BE76DAD}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{71AD7BEB-C7DC-43BF-BEBB-31567BE76DAD}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{71AD7BEB-C7DC-43BF-BEBB-31567BE76DAD}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{71AD7BEB-C7DC-43BF-BEBB-31567BE76DAD}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{71AD7BEB-C7DC-43BF-BEBB-31567BE76DAD}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
+		{71AD7BEB-C7DC-43BF-BEBB-31567BE76DAD}.Release|Win32.ActiveCfg = Debug|Any CPU
+		{7A04D058-EBB3-4CC3-9765-1DA727635443}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{7A04D058-EBB3-4CC3-9765-1DA727635443}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{7A04D058-EBB3-4CC3-9765-1DA727635443}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{7A04D058-EBB3-4CC3-9765-1DA727635443}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7A04D058-EBB3-4CC3-9765-1DA727635443}.Debug|Win32.Build.0 = Debug|Win32
+		{7A04D058-EBB3-4CC3-9765-1DA727635443}.Release|Any CPU.ActiveCfg = Release|Win32
+		{7A04D058-EBB3-4CC3-9765-1DA727635443}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{7A04D058-EBB3-4CC3-9765-1DA727635443}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{7A04D058-EBB3-4CC3-9765-1DA727635443}.Release|Win32.ActiveCfg = Release|Win32
+		{7A04D058-EBB3-4CC3-9765-1DA727635443}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

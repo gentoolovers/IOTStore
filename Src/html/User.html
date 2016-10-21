@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+     <link href="style/style.css" type="text/css" rel="stylesheet"/>
+    <script type="text/javascript" src="script/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="script/myjs.js"></script>
+    <script src="script/UnitPage.js"></script>
+    <script src="script/Tbl_User_Info.js"></script>
+</head>
+<body class="workarea">
+	<div class="workTitle">
+		<h2><span class="path bolder">您当前的位置：</span><a href="#">用户管理</a><span>&gt;&gt;</span><a href="#">用户管理</a></h2>
+	</div>
+	<div class="workCov">
+		<div class="tabCon">
+			<strong class="conT">组合查询</strong>
+			<div class="conBox">
+				<form>
+				<ul class="searForm">
+					<li>
+                        <label class="searLab">用户名</label>
+						<span class="searInput"><input id="txtUserName" type="text" /></span>
+                        <label class="searLab">&nbsp</label>
+                        <span class="searInput"><input id="btnQuery" type="button" value="查询" onclick="btnQuery_Click()" /></span>
+                        <label class="searLab">&nbsp</label>
+                        <span class="searInput">
+                            <input id="btnNew" type="button" value="新建" onClick="location = 'EditUser.html'"/></span>
+					</li>
+				</ul>
+				</form>
+			</div>
+
+			<strong class="conT">查询结果</strong>
+			<div class="conBox">
+				<table class="table1" cellpadding="0" cellspacing="1">
+					<thead>
+                        <tr>
+						<td class="alignM" width="10%">用户编码</td>
+						<td class="alignL width="20%"">用户名</td>
+                        <td class="alignL width="20%"">昵称</td>
+						<td class="alignM">用户权限</td>
+						<td class="alignM" width="20%">操 作</td>
+                        </tr>
+					</thead>
+					<tbody>
+						
+					</tbody>
+					<tfoot>
+                        <tr><td colspan="5">
+                                <span>
+                                    <label id="labPageInfo">请输入条件，点击查询</label></span>
+                                <span>
+                                    <input id="btnFirst" type="button" value="首页" onclick='btnPage_Click("First")' /></span>
+                                <span>
+                                    <input id="btnPrev" type="button" value="上一页" onclick='btnPage_Click("Prev")' /></span>
+                                <span>
+                                    <input id="btnNext" type="button" value="下一页" onclick='btnPage_Click("Next")' /></span>
+                                <span>
+                                    <input id="btnLast" type="button" value="末页" onclick='btnPage_Click("Last")' /></span>
+
+                                <span style="margin-left: 5px;">跳转到第
+                                    <select id="selPage" style="width: 40px;" onchange="SelPage_SelectedIndexChanged()">
+                                    </select>页
+                                </span>
+						</td></tr>
+						
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{E4E0B249-6595-4DA1-8DBF-BD8F61A4C236}</ProjectGuid>
+    <RootNamespace>cgi</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\SQLite3\SqlHelper_Sqlite3.c" />
+    <ClCompile Include="..\SQLite3\Tbl_Article_InfoDAL.c" />
+    <ClCompile Include="..\SQLite3\Tbl_Article_TypeDAL.c" />
+    <ClCompile Include="..\SQLite3\Tbl_Camera_InfoDAL.c" />
+    <ClCompile Include="..\SQLite3\Tbl_Device_ControlDAL.c" />
+    <ClCompile Include="..\SQLite3\Tbl_Device_HistoryDAL.c" />
+    <ClCompile Include="..\SQLite3\Tbl_Device_InfoDAL.c" />
+    <ClCompile Include="..\SQLite3\Tbl_Device_ParameterDAL.c" />
+    <ClCompile Include="..\SQLite3\Tbl_RFID_InfoDAL.c" />
+    <ClCompile Include="..\SQLite3\Tbl_Role_InfoDAL.c" />
+    <ClCompile Include="..\SQLite3\Tbl_Storage_InfoDAL.c" />
+    <ClCompile Include="..\SQLite3\Tbl_System_ParameterDAL.c" />
+    <ClCompile Include="..\SQLite3\Tbl_User_InfoDAL.c" />
+    <ClCompile Include="cgic.c" />
+    <ClCompile Include="Tbl_User_InfoAdd.c" />
+    <ClCompile Include="Tbl_User_InfoDelete.c" />
+    <ClCompile Include="Tbl_User_InfoFind.c" />
+    <ClCompile Include="Tbl_User_InfoFindPage.c" />
+    <ClCompile Include="Tbl_User_InfoFindSingle.c" />
+    <ClCompile Include="Tbl_User_InfoModify.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\SQLite3\SqlHelper_Sqlite3.h" />
+    <ClInclude Include="..\SQLite3\Tbl_Article_InfoDAL.h" />
+    <ClInclude Include="..\SQLite3\Tbl_Article_TypeDAL.h" />
+    <ClInclude Include="..\SQLite3\Tbl_Camera_InfoDAL.h" />
+    <ClInclude Include="..\SQLite3\Tbl_Device_ControlDAL.h" />
+    <ClInclude Include="..\SQLite3\Tbl_Device_HistoryDAL.h" />
+    <ClInclude Include="..\SQLite3\Tbl_Device_InfoDAL.h" />
+    <ClInclude Include="..\SQLite3\Tbl_Device_ParameterDAL.h" />
+    <ClInclude Include="..\SQLite3\Tbl_RFID_InfoDAL.h" />
+    <ClInclude Include="..\SQLite3\Tbl_Role_InfoDAL.h" />
+    <ClInclude Include="..\SQLite3\Tbl_Storage_InfoDAL.h" />
+    <ClInclude Include="..\SQLite3\Tbl_System_ParameterDAL.h" />
+    <ClInclude Include="..\SQLite3\Tbl_User_InfoDAL.h" />
+    <ClInclude Include="cgic.h" />
+    <ClInclude Include="sqlite3.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

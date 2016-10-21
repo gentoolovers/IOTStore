@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="style/style.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="script/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="script/myjs.js"></script>
+    <script src="script/jquery.urlGet.js"></script>
+    <script type="text/javascript">
+        var DeviceID = $.urlGet()['DeviceID'];
+        var obj;
+        $(function () {
+            if (DeviceID != undefined) {
+                $.ajax({
+                    type: "POST",
+                    url: "./cgi-bin/Tbl_Device_ParameterFindSingle.cgi",
+                    contentType: "application/x-www-form-urlencoded",
+                    data: "sCon= and DeviceID='" + DeviceID + "'",
+                    success: function (json) {
+                        list = eval("(" + json + ")");
+                        obj = list.jsn[0];
+                        if (obj == undefined) return false;
+                        $("#txtMinTem").val(obj.MinTem);
+                        $("#txtMaxTem").val(obj.MaxTem);
+                        $("#txtMinHum").val(obj.MinHum);
+                        $("#txtMaxHum").val(obj.MaxHum);
+                        $("#txtMinLit").val(obj.MinLit);
+                        $("#txtMaxLit").val(obj.MaxLit);
+                        $("#txtTimeSet").val(obj.TimeSet);
+                    }
+                });
+            }
+            $("#btnSave").click(function () {
+                if (!CheckValid()) return false;
+                var data = "DeviceID=" + DeviceID + "&MinTem=" + $("#txtMinTem").val() + "&MaxTem=" + $("#txtMaxTem").val() + "&MinHum=" + $("#txtMinHum").val() + "&MaxHum=" + $("#txtMaxHum").val() + "&MinLit=" + $("#txtMinLit").val() + "&MaxLit=" + $("#txtMaxLit").val() + "&TimeSet=" + $("#txtTimeSet").val() + "$IsSet=1";
+                if (obj == undefined) {
+                    $.ajax({
+                        type: "POST",
+                        url: "./cgi-bin/Tbl_Device_ParameterAdd.cgi",
+                        contentType: "application/x-www-form-urlencoded",
+                        data: data,
+                        success: function (json) {
+                            list = eval("(" + json + ")");
+                            if (json.jsn == 0) {
+                                alert("保存失败");
+                            } else {
+                                alert("保存成功");
+                                window.location.href = "Device.html";
+                            }
+                        }
+                    });
+                } else {
+                    $.ajax({
+                        type: "POST",
+                        url: "./cgi-bin/Tbl_Device_ParameterModify.cgi",
+                        contentType: "application/x-www-form-urlencoded",
+                        data: data,
+                        success: function (json) {
+                            list = eval("(" + json + ")");
+                            if (json.jsn == 0) {
+                                alert("保存失败");
+                            } else {
+                                alert("保存成功");
+                                window.location.href = "Device.html";
+                            }
+                        }
+                    });
+                }
+
+            });
+        })
+        function CheckValid() {
+            if ($("#txtMinTem").val() == "") {
+                alert("最低温度不能为空");
+                $("#txtMinTem").focus();
+                return false;
+            }
+            if ($("#txtMaxTem").val() == "") {
+                alert("最高温度不能为空");
+                $("#txtMaxTem").focus();
+                return false;
+            }
+            if ($("#txtMinHum").val() == "") {
+                alert("最低湿度不能为空");
+                $("#txtMinHum").focus();
+                return false;
+            }
+            if ($("#txtMaxHum").val() == "") {
+                alert("最高湿度不能为空");
+                $("#txtMaxHum").focus();
+                return false;
+            }
+            if ($("#txtMinLit").val() == "") {
+                alert("最低光度不能为空");
+                $("#txtMinLit").focus();
+                return false;
+            }
+            if ($("#txtMaxLit").val() == "") {
+                alert("最高光度不能为空");
+                $("#txtMaxLit").focus();
+                return false;
+            }
+            if ($("#txtTimeSet").val() == "") {
+                alert("采集周期不能为空");
+                $("#txtTimeSet").focus();
+                return false;
+            }
+
+
+            
+
+            return true;
+        }
+    </script>
+</head>
+<body class="workarea">
+    <div class="workTitle">
+        <h2></h2>
+    </div>
+    <form>
+        <div class="workCov">
+            <div class="tabCon">
+                <strong class="conT">采集参数</strong>
+                <div class="conBox">
+                    <ul class="searForm">
+                        <li>
+                            <label class="searLab">最低温度</label>
+                            <span class="searInput">
+                                <input id="txtMinTem" type="text" value="0" />℃</span>
+                            <label class="searLab">最高温度</label>
+                            <span class="searInput">
+                                <input id="txtMaxTem" type="text" value="100" />℃</span>
+                        </li>
+                        <li>
+                            <label class="searLab">最低湿度</label>
+                            <span class="searInput">
+                                <input id="txtMinHum" type="text" value="0" />℃</span>
+                            <label class="searLab">最高湿度</label>
+                            <span class="searInput">
+                                <input id="txtMaxHum" type="text" value="100" />℃</span>
+                        </li>
+                        <li>
+                            <label class="searLab">最低光度</label>
+                            <span class="searInput">
+                                <input id="txtMinLit" type="text" value="0" />℃</span>
+                            <label class="searLab">最高光度</label>
+                            <span class="searInput">
+                                <input id="txtMaxLit" type="text" value="100" />℃</span>
+                        </li>
+                    </ul>
+                </div>
+
+
+            </div>
+
+            <div class="tabCon">
+                <strong class="conT">上传参数</strong>
+                <div class="conBox">
+
+                    <ul class="searForm">
+                        <li>
+                            <label class="searLab">上传周期</label>
+                            <span class="searInput">
+                                <input id="txtTimeSet" type="text" value="30000" />毫秒</span>
+
+                        </li>
+
+                        <li>
+                            <label class="searLab">&nbsp</label>
+                            <span class="searInput">
+                                <input id="btnSave" type="button" value="保存" /></span>
+                            <label class="searLab">&nbsp</label>
+                            <span class="searInput">
+                                <input type="button" value="取消" onclick="location = 'Device.html'" /></span>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+</body>
+</html>
