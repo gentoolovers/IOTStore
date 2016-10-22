@@ -1,0 +1,9 @@
+.\output\retarget.o: ..\Lib_MCU\src\retarget.c
+.\output\retarget.o: E:\app\MDK514\ARM\ARMCC\Bin\..\include\stdio.h
+.\output\retarget.o: E:\app\MDK514\ARM\ARMCC\Bin\..\include\rt_misc.h
+.\output\retarget.o: E:\app\MDK514\ARM\ARMCC\Bin\..\include\stddef.h
+.\output\retarget.o: E:\app\MDK514\ARM\ARMCC\Bin\..\include\stdint.h
+.\output\retarget.o: ..\Lib_MCU\inc\LPC11xx.h
+.\output\retarget.o: ..\Lib_MCU\inc\core_cm0.h
+.\output\retarget.o: ..\Lib_MCU\inc\system_LPC11xx.h
+.\output\retarget.o: ..\Lib_MCU\inc\uart.h

@@ -1,0 +1,16 @@
+.\output\lsj_protocol.o: src\lsj_protocol.c
+.\output\lsj_protocol.o: src\lsj_protocol.h
+.\output\lsj_protocol.o: E:\app\MDK514\ARM\ARMCC\Bin\..\include\stdint.h
+.\output\lsj_protocol.o: src\global_define.h
+.\output\lsj_protocol.o: E:\app\MDK514\ARM\ARMCC\Bin\..\include\string.h
+.\output\lsj_protocol.o: src\arm_system.h
+.\output\lsj_protocol.o: ..\Lib_BSP\inc\temp_hum.h
+.\output\lsj_protocol.o: ..\Lib_MCU\inc\LPC11xx.h
+.\output\lsj_protocol.o: ..\Lib_MCU\inc\core_cm0.h
+.\output\lsj_protocol.o: ..\Lib_MCU\inc\system_LPC11xx.h
+.\output\lsj_protocol.o: ..\Lib_BSP\inc\light.h
+.\output\lsj_protocol.o: ..\Lib_MCU\inc\i2c.h
+.\output\lsj_protocol.o: ..\Lib_BSP\inc\spi_uart.h
+.\output\lsj_protocol.o: ..\Lib_MCU\inc\gpio.h
+.\output\lsj_protocol.o: ..\Lib_BSP\inc\seg7led.h
+.\output\lsj_protocol.o: src\event.h
