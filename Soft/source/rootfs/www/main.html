@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+    <link href="style/style.css" type="text/css" rel="stylesheet"/>
+    <script type="text/javascript" src="script/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="script/myjs.js"></script>
+    <script type="text/javascript" src="FusionCharts/FusionCharts.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $.ajax({
+                type: "POST",
+                url: "./cgi-bin/History_StorageFind.cgi",
+                contentType: "application/x-www-form-urlencoded",
+                data: "sCon= ",
+                success: function (json) {
+                    var list = eval("(" + json + ")");
+                    var myChart = new FusionCharts("FusionCharts/MSColumn3D.swf", "myChartId", "100%", "500", "0", "0");
+                    var dd = '{"chart": {"legendposition": "BOTTOM","numdivlines": "4","showvalues": "0","numberSuffix": " ","yAxisMinValue": "0","formatnumberscale": "0","animation": "1","forceyaxisvaluedecimals": "1","palette": "2","xaxisname": "","caption": "仓库综合信息展示图"},';
+                    dd+='"categories": [{"category": [ ';
+                    var storageName="";
+                    var temp="";
+                    var hum="";
+                    var lum="";
+                    $.each(list.jsn, function (i, n) {
+                        storageName += '{"label": "' + n.StorageName + '"},';
+                        temp += '{"value": "' + n.Temperature + '"},';
+                        hum += '{"value": "' + n.Humidity + '"},';
+                        lum += '{"value": "' + n.Luminosity + '"},';
+                    });
+                    storageName = storageName.substring(0, storageName.length - 1);
+                    temp = temp.substring(0, temp.length - 1);
+                    hum = hum.substring(0, hum.length - 1);
+                    lum = lum.substring(0, lum.length - 1);
+                    dd += storageName + ']}],"dataset": [';
+                    dd += '{ "seriesname": "温度℃","data": [' + temp + ']},';
+                    dd += '{ "seriesname": "湿度%","data": [' + hum + ']},';
+                    dd += '{ "seriesname": "光度cd","data": [' + lum + ']}],';
+                    dd += '"styles": {"definition": [{ "type": "font", "name": "CaptionFont","size": "15","color": "666666" },{ "type": "font","name": "SubCaptionFont","bold": "0"}],"application": [{"styles": "CaptionFont","toobject": "caption" },{ "styles": "SubCaptionFont","toobject": "SubCaption"}]}}';
+                    myChart.setJSONData(dd);
+                    myChart.render("chartdiv");
+                }
+            });
+            
+           
+        })
+    </script>
+</head>
+
+<body class="workarea">
+	<div class="workTitle">
+		<h2><span class="path bolder">您当前的位置：</span><a href="#">综合展示</a><span>&gt;&gt;</span><a href="#">首页</a></h2>
+	</div>
+	<div class="workCov">
+        <div class="tabCon">
+			<strong class="conT">仓库综合信息展示图</strong>
+			<div class="conBox">
+            <div id="chartdiv" style="width:100%;height:550px;">
+
+		    </div>
+        </div>
+		</div>
+       
+	</div>
+</body>
+</html>

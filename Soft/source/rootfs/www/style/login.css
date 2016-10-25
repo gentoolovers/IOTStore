@@ -1,0 +1,10 @@
+@charset "utf-8";
+/* CSS Document */
+.login_bg{ width:566px; height:410px; background:url(../images/loginbg.png) 0 0 no-repeat; position:absolute; top:50%; left:50%; margin:-205px 0 0 -283px; }
+
+.style6 {FONT-SIZE: 9pt; color: #7b8ac3; }
+.login_box{ width:220px;margin-left:300px;margin-top:18px;color:#008EE3}
+.yan img{ float:left; width:50px; height:24px; border:none; display:block; margin-left:8px;cursor:pointer;}
+.login_btn input{background:url(../images/login_5.gif) 0 0 no-repeat; border:none; width:69px; height:24px; line-height:24px; text-align:center; cursor:pointer;color:#008EE3}
+.go_in input,.go_in2 input{background:#fff url(../images/login_6.gif) repeat-x; border:solid 1px #27B3FE; height:20px; line-height:20px; width:115px;}
+.go_in2 input{width:58px;}

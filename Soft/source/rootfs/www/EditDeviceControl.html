@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="style/style.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="script/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="script/myjs.js"></script>
+    <script src="script/jquery.urlGet.js"></script>
+    <script type="text/javascript">
+        var DeviceID = $.urlGet()['DeviceID'];
+        var obj;
+        $(function () {
+            if (DeviceID != undefined) {
+                $.ajax({
+                    type: "POST",
+                    url: "./cgi-bin/Tbl_Device_ControlFindSingle.cgi",
+                    contentType: "application/x-www-form-urlencoded",
+                    data: "sCon= and DeviceID='" + DeviceID + "'",
+                    success: function (json) {
+                        list = eval("(" + json + ")");
+                        obj = list.jsn[0];
+                        if (obj == undefined) return false;
+                        $("input[name=rdoLed][value='" + obj.LedSet + "']").attr("checked", true);
+                        $("input[name=rdoBeep][value='" + obj.BeepSet + "']").attr("checked", true);
+                        if (obj.SegSet != 0) {
+                            $("input[name=rdoSeg][value='1']").attr("checked", true);
+                            $("#txtSeg").val(obj.SegSet);
+                        } else {
+                            $("input[name=rdoSeg][value='0']").attr("checked", true);
+                            $("#txtSeg").val(0);
+                        }
+                       
+                        $("input[name=rdoFan][value='" + obj.FanSet + "']").attr("checked", true);
+                        $("input[name=rdoRFID][value='" + obj.RFIDSet + "']").attr("checked", true);
+                        $("input[name=rdoAlarm][value='" + obj.AlarmSet + "']").attr("checked", true);
+                    }
+                });
+            }
+            $("#btnSave").click(function () {
+                if (!CheckValid()) return false;
+                var data = "DeviceID=" + DeviceID + "&LedSet=" + $("input[name='rdoLed']:checked").val() + "&BeepSet=" + $("input[name='rdoBeep']:checked").val() + "&SegSet=" + ($("input[name='rdoSeg']:checked").val() == "0" ? "0" : $("#txtSeg").val()) + "&FanSet=" + $("input[name='rdoFan']:checked").val() + "&RFIDSet=" + $("input[name='rdoRFID']:checked").val() + "&AlarmSet=" + $("input[name='rdoAlarm']:checked").val() + "$IsSet=1";
+                if (obj == undefined) {
+                    $.ajax({
+                        type: "POST",
+                        url: "./cgi-bin/Tbl_Device_ControlAdd.cgi",
+                        contentType: "application/x-www-form-urlencoded",
+                        data: data,
+                        success: function (json) {
+                            list = eval("(" + json + ")");
+                            if (json.jsn == 0) {
+                                alert("保存失败");
+                            } else {
+                                alert("保存成功");
+                                window.location.href = "Device.html";
+                            }
+                        }
+                    });
+                } else {
+                    $.ajax({
+                        type: "POST",
+                        url: "./cgi-bin/Tbl_Device_ControlModify.cgi",
+                        contentType: "application/x-www-form-urlencoded",
+                        data: data,
+                        success: function (json) {
+                            list = eval("(" + json + ")");
+                            if (json.jsn == 0) {
+                                alert("保存失败");
+                            } else {
+                                alert("保存成功");
+                                window.location.href = "Device.html";
+                            }
+                        }
+                    });
+                }
+
+            });
+        })
+        function CheckValid() {
+           
+
+
+
+            return true;
+        }
+    </script>
+</head>
+<body class="workarea">
+    <div class="workTitle">
+        <h2></h2>
+    </div>
+    <form>
+        <div class="workCov">
+            <div class="tabCon">
+                <strong class="conT">控制参数</strong>
+                <div class="conBox">
+                    <ul class="searForm">
+                        <li>
+                            <label class="searLab">LED</label>
+                            <span class="searInput">
+                                <input name="rdoLed" type="radio" checked="checked" value="0" />关<input name="rdoLed" type="radio" value="1" />开</span>
+
+                        </li>
+                        <li>
+                            <label class="searLab">Beep</label>
+                            <span class="searInput">
+                                <input name="rdoBeep" type="radio" checked="checked" value="0" />关<input name="rdoBeep" type="radio" value="1" />开</span>
+
+                        </li>
+                        <li>
+                            <label class="searLab">Seg</label>
+                            <span class="searInput">
+                                <input name="rdoSeg" type="radio" checked="checked" value="0" />关<input name="rdoSeg" type="radio" value="1" />开<input id="txtSeg" type="text" value="0" /></span>
+
+                        </li>
+                        <li>
+                            <label class="searLab">Fan</label>
+                            <span class="searInput">
+                            <input name="rdoFan" type="radio" checked="checked" value="0" />off
+                            <input name="rdoFan" type="radio" value="1" />1
+                            <input name="rdoFan" type="radio" value="2" />2
+                            <input name="rdoFan" type="radio" value="3" />3
+                            </span>
+
+                        </li>
+                        <li>
+                            <label class="searLab">射频刷卡</label>
+                            <span class="searInput">
+                                <input name="rdoRFID" type="radio" checked="checked" value="0" />关<input name="rdoRFID" type="radio" value="1" />开</span>
+
+                        </li>
+                        <li>
+                            <label class="searLab">震动报警</label>
+                            <span class="searInput">
+                                <input name="rdoAlarm" type="radio" checked="checked" value="0" />关<input name="rdoAlarm" type="radio" value="1" />开</span>
+
+                        </li>
+                         
+                        <li>
+                            <label class="searLab">&nbsp</label>
+                            <span class="searInput">
+                                <input id="btnSave" type="button" value="保存" /></span>
+                            <label class="searLab">&nbsp</label>
+                            <span class="searInput">
+                                <input type="button" value="取消" onclick="location = 'Device.html'" /></span>
+                        </li>
+                    
+                    </ul>
+                </div>
+            </div>
+           
+
+        </div>
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <link href="style/style.css" type="text/css" rel="stylesheet"/>
+    <script type="text/javascript" src="script/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="script/myjs.js"></script>
+    <script src="script/jquery.urlGet.js"></script>
+    <script type="text/javascript">
+        var StorageID = $.urlGet()['StorageID'];
+        var obj;
+        $(function () {
+            if (StorageID != undefined) {
+                $.ajax({
+                    async: false,
+                    type: "POST",
+                    url: "./cgi-bin/Tbl_Storage_InfoFindSingle.cgi",
+                    contentType: "application/x-www-form-urlencoded",
+                    data: "sCon= and StorageID='" + StorageID + "'",
+                    success: function (json) {
+                        list = eval("(" + json + ")");
+                        obj = list.jsn[0];
+                        $("#txtStorageName").val(obj.StorageName);
+                        $("#txtStorageAddress").val(obj.StorageAddress);
+                    }
+                });
+            }
+            $("#btnSave").click(function () {
+                if (!CheckValid()) return false;
+                if (StorageID == undefined) {
+                    var data = "StorageID=0&StorageName=" + $("#txtStorageName").val() + "&StorageAddress=" + $("#txtStorageAddress").val();
+                    $.ajax({
+                        type: "POST",
+                        url: "./cgi-bin/Tbl_Storage_InfoAdd.cgi",
+                        contentType: "application/x-www-form-urlencoded",
+                        data: data,
+                        success: function (json) {
+                            list = eval("(" + json + ")");
+                            if (json.jsn == 0) {
+                                alert("保存失败");
+                            } else {
+                                alert("保存成功");
+                                window.location.href = "Storage.html";
+                            }
+                        }
+                    });
+                } else {
+                    var data = "StorageID=" + StorageID + "&StorageName=" + $("#txtStorageName").val() + "&StorageAddress=" + $("#txtStorageAddress").val();
+                    $.ajax({
+                        type: "POST",
+                        url: "./cgi-bin/Tbl_Storage_InfoModify.cgi",
+                        contentType: "application/x-www-form-urlencoded",
+                        data: data,
+                        success: function (json) {
+                            list = eval("(" + json + ")");
+                            if (json.jsn == 0) {
+                                alert("保存失败");
+                            } else {
+                                alert("保存成功");
+                                window.location.href = "Storage.html";
+                            }
+                        }
+                    });
+                }
+            });
+        })
+        function CheckValid() {
+            if ($("#txtStorageName").val() == "") {
+                alert("设备名称不能为空");
+                $("#txtStorageName").focus();
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</head>
+<body class="workarea">
+	<div class="workTitle">
+		<h2></h2>
+	</div>
+	<div class="workCov">
+		<div class="tabCon">
+			<strong class="conT">仓库编辑</strong>
+			<div class="conBox">
+				<form>
+				<ul class="searForm">
+					<li>
+						
+						<label class="searLab">仓库名称</label>
+						<span class="searInput"><input id="txtStorageName" type="text" value="" /></span>
+						
+					</li>
+					<li>
+						<label class="searLab">仓库地址</label>
+						<span class="searInput"><input id="txtStorageAddress" type="text" value="" /></span>
+						
+					</li>
+					<li>
+						<label class="searLab">&nbsp</label>
+						<span class="searInput">
+                            <input id="btnSave" type="button" value="保存" /></span>
+						<label class="searLab">&nbsp</label>
+						<span class="searInput">
+                                <input type="button" value="取消" onClick="location = 'Storage.html'" /></span>
+					</li>
+				</ul>
+				</form>
+			</div>
+
+			
+		</div>
+	</div>
+</body>
+</html>

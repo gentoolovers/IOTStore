@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>物联仓储系统登录</title>
+<link href="style/style.css" rel="stylesheet" type="text/css" />
+<link href="style/login.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="script/jquery-1.4.2.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#btnLogin").click(function () {
+            Login();
+        });
+        $("body").keydown(function() {
+            if (event.keyCode == "13") {//keyCode=13是回车键
+                Login();
+            }
+        });  
+        $("#btnClear").click(function () {
+            $("#txtUserName").val("");
+            $("#txtPassword").val("");
+        });
+    })
+    function Login() {
+        if (CheckValid()) {
+            $.ajax({
+                type: "POST",
+                url: "./cgi-bin/Tbl_User_InfoFindSingle.cgi",
+                contentType: "application/x-www-form-urlencoded",
+                data: "sCon= and UserName='" + $("#txtUserName").val() + "'",
+                success: function (json) {
+                    list = eval("(" + json + ")");
+                    if (list.jsn[0] == undefined) {
+                        alert("用户名不存在！")
+                        $("#txtUserName").focus();
+                        return false;
+                    }
+                    if (list.jsn[0].Password != $("#txtPassword").val()) {
+                        alert("密码不正确！");
+                        $("#txtPassword").focus();
+                        return false;
+                    } else {
+                        window.location.href = "index.html";
+                    }
+                }
+            });
+        }
+    }
+    function CheckValid() {
+        if ($("#txtUserName").val() == "")
+        {
+            alert("用户名不能为空");
+            $("#txtUserName").focus();
+            return false;
+        }
+        if (IsExistSpecialCharacter($("#txtUserName").val()))
+        {
+            alert("用户名不能包含非法字符！");
+            $("#txtUserName").focus();
+            return false;
+        }
+        if ($("#txtPassword").val() == "") {
+            alert("密码不能为空");
+            $("#txtPassword").focus();
+            return false;
+        }
+        if (IsExistSpecialCharacter($("#txtPassword").val())) {
+            alert("密码不能包含非法字符！");
+            $("#txtPassword").focus();
+            return false;
+        }
+        return true;
+    }
+    function IsExistSpecialCharacter(Ostr) {
+        var str = "'|;|and|exec|insert|select|delete|update|count|%|char|mid|master|truncate|char|declare|--";
+        var arrTest = str.split("|");
+        for (i = 0; i < arrTest.length; i++) {
+            if (Ostr.toString().toLowerCase().search(arrTest[i]) != -1) {
+                return true;
+            }
+        }
+        return false;
+    }
+</script>
+</head>
+
+<body style="background:#9dcef9; ">
+<div class="login_bg">
+<div class="login_box">
+  <table width="220" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td height="50">&nbsp;</td>
+    </tr>
+    <tr>
+      <td><table width="220" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="72" height="30">登陆名称</td>
+          <td width="148" align="left" class="go_in"><input type="text" id="txtUserName"/></td>
+        </tr>
+      </table></td>
+    </tr>
+    <tr>
+      <td><table width="220" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="72" height="30">登陆密码</td>
+          <td width="148" align="left" class="go_in"><input  type="password" id="txtPassword" /></td>
+        </tr>
+      </table></td>
+    </tr>
+   
+    <tr>
+      <td height="40"><table width="180" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="110" class="login_btn"><input id="btnLogin" type="button" value=" 登  陆 "  /></td>
+          <td width="110" class="login_btn"><input id="btnClear" type="reset"  value=" 取  消 " /></td>
+        </tr>
+      </table></td>
+    </tr>
+  </table>
+</div><!--login_box-->
+</div><!--login_bg-->
+</body>
+</html>

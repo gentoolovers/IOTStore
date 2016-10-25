@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+    <link href="style/style.css" type="text/css" rel="stylesheet"/>
+    <script type="text/javascript" src="script/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="script/myjs.js"></script>
+    <script src="script/UnitPage.js"></script>
+    <script type="text/javascript">
+        var sCon = " ";
+        var sSort = " order by DeviceName";
+        var iCurrentPageIndex = 1;
+        var iPageSize = 10;
+        var iTotalPageCount = 0;
+        $(function () {
+            DataBind();
+        })
+        function DataBind() {
+            var data = "sCon=" + sCon + "&sSort=" + sSort + "&iPageSize=" + iPageSize + "&iCurrentPageIndex=" + iCurrentPageIndex;
+            $.ajax({
+                async: false,
+                type: "POST",
+                url: "./cgi-bin/History_DeviceFindPage.cgi",
+                contentType: "application/x-www-form-urlencoded",
+                data: data,
+                success: function (json) {
+                    var list = eval("(" + json + ")");
+                    if (!noresultSet(list.iTotalPageCount)) return false;
+                    UnitPage(list.iTotalPageCount);
+                    $(".table1>tbody>tr").remove();
+                    $.each(list.jsn, function (i, n) {
+                        var str = "<tr>";
+                        str += "<td class=\"alignL\">" + n.DeviceName + "</td>";
+                        str += "<td class=\"alignM\">" + n.Temperature + "</td>";
+                        str += "<td class=\"alignM\">" + n.Humidity + "</td>";
+                        str += "<td class=\"alignM\">" + n.Luminosity + "</td>";
+                        str += "<td class=\"alignM\">" + n.Electricity + "</td>";
+                        if (n.IsOnLine == 1) {
+                            str += '<td class="alignM"><span style="background:green;border-radius:5px;color:black;padding:3px 5px;">在线</span></td>';
+                        } else {
+                            str += '<td class="alignM"><span style="background:rgb(186, 178, 178);border-radius:5px;color:rgb(103, 97, 97);padding:3px 5px;">离线</span></td>';
+                        }
+                        if (n.IsAlarm == 1) {
+                            str += '<td class="alignM"><span style="background:red;border-radius:5px;color:rgb(67, 50, 85);padding:3px 5px;">报警</span></td>';
+                        } else {
+                            str += '<td class="alignM"><span style="background:green;border-radius:5px;color:black;padding:3px 5px;">正常</span></td>';
+                        }
+                        str += "</tr>";
+                        $(".table1>tbody").append(str);
+                        setTable();
+                    });
+
+                }
+            });
+        }
+        function btnQuery_Click() {
+            sCon = "";
+            if ($("#txtDeviceName").val() != 0) {
+                sCon += " and DeviceName = '" + $("#txtDeviceName").val() +"'";
+            }
+            iCurrentPageIndex = 1;
+            DataBind();
+        };
+    </script>
+</head>
+
+<body class="workarea">
+	<div class="workTitle">
+		<h2><span class="path bolder">您当前的位置：</span><a href="#">信息查询</a><span>&gt;&gt;</span><a href="#">设备运行状态</a></h2>
+	</div>
+	<div class="workCov">
+		<div class="tabCon">
+			<strong class="conT">组合查询</strong>
+			<div class="conBox">
+				<form>
+				<ul class="searForm">
+					<li>
+						<label class="searLab">设备名称</label>
+						<span class="searInput"><input id="txtDeviceName" type="text" /></span>
+						<label class="searLab">&nbsp</label>
+                        <span class="searInput"><input type="button" value="查询" onclick="btnQuery_Click()" /></span>
+					</li>
+					
+				</ul>
+				</form>
+			</div>
+
+			<strong class="conT">查询结果</strong>
+			<div class="conBox">
+				<table class="table1" cellpadding="0" cellspacing="1">
+					<thead>
+                        <tr>
+						<td class="alignL">设备名称</td>
+						<td class="alignM">温度℃</td>
+						<td class="alignM">湿度%</td>
+						<td class="alignM">光度</td>
+                        <td class="alignM">电量</td>
+						<td class="alignM">状态</td>
+                        <td class="alignM">报警</td>
+                        </tr>
+					</thead>
+					<tbody>
+						
+					</tbody>
+					<tfoot>
+						<tr><td colspan="5">
+                                <span>
+                                    <label id="labPageInfo">请输入条件，点击查询</label></span>
+                                <span>
+                                    <input id="btnFirst" type="button" value="首页" onclick='btnPage_Click("First")' /></span>
+                                <span>
+                                    <input id="btnPrev" type="button" value="上一页" onclick='btnPage_Click("Prev")' /></span>
+                                <span>
+                                    <input id="btnNext" type="button" value="下一页" onclick='btnPage_Click("Next")' /></span>
+                                <span>
+                                    <input id="btnLast" type="button" value="末页" onclick='btnPage_Click("Last")' /></span>
+
+                                <span style="margin-left: 5px;">跳转到第
+                                    <select id="selPage" style="width: 40px;" onchange="SelPage_SelectedIndexChanged()">
+                                    </select>页
+                                </span>
+						</td></tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
